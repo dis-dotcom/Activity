@@ -1,15 +1,10 @@
 import json
 import boto3
-import urllib3
-from botocore.client import Config
-
-
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class S3:
     def __init__(self, bucket, aws_access_key_id, aws_secret_access_key, region_name):
-        self.endpoint_url = 'https://s3.twcstorage.ru'
+        self.endpoint_url = 'http://s3.twcstorage.ru'
         self.bucket = bucket
 
         self.s3 = boto3.client(
@@ -17,9 +12,7 @@ class S3:
             endpoint_url=self.endpoint_url,
             aws_access_key_id=aws_access_key_id,
             aws_secret_access_key=aws_secret_access_key,
-            region_name=region_name,
-            verify=False,
-            config=Config(signature_version='s3v4')
+            region_name=region_name
         )
 
     def put(self, key, object):
@@ -27,8 +20,8 @@ class S3:
 
         self.s3.put_object(
             Bucket=self.bucket,
-            Key='key',
+            Key=key,
             Body=json_bytes,
-            ContentType='application/json'
+            ContentType='application/json',
+            ContentLength=len(json_bytes)
         )
-
