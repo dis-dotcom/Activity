@@ -14,6 +14,6 @@ async def root():
 async def log():
     now = datetime.now()
     with open('.log', 'a', encoding='utf-8') as file:
-        file.writelines([now])
+        file.writelines([str(now)])
 
     return now
