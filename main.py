@@ -12,6 +12,11 @@ async def index():
     return index
 
 
+@app.get("/api/version")
+async def version():
+    return "0.0.0.1"
+
+
 @app.get("/api/logs")
 async def log():
     with open('/home/.log', 'r', encoding='utf-8') as file:
