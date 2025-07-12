@@ -48,7 +48,6 @@ async def log():
 def log_activity():
     now = str(Now())
 
-    s3.put(now, {
     put_async(now, {
         'activity': now
     })
