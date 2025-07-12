@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from DateTime import Now
-from index import index
+from index import index as indexPage
 
 app = FastAPI()
 
@@ -10,7 +10,7 @@ app = FastAPI()
 async def index():
     log_activity()
 
-    return index
+    return indexPage
 
 
 @app.get("/api/version")
