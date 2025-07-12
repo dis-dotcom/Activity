@@ -59,11 +59,11 @@ def job():
 def log_activity():
     for id in ids:
         user_info = vk.get_user_info(id)
-
         s3.put_async(
             key=f"{Today()}/{id}/{Now()}.json",
-            object=json.loads(user_info)
+            object=user_info
         )
 
     with open('/home/.log', 'a', encoding='utf-8') as file:
         file.write(user_info + '\n')
+        file.write(json.dumps(user_info) + '\n')
