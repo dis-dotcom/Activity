@@ -19,7 +19,7 @@ class S3:
     def put(self, key, object):
         json_str = json.dumps(object).encode('utf-8')
 
-        s3.put_object(
+        self.s3.put_object(
             Bucket=self.bucket,
             Key=key,
             Body=json_str,
