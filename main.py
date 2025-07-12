@@ -4,7 +4,6 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse, PlainTextResponse
 from DateTime import Now
 from index import index as index_page
-from S3 import get_client, push_object
 from S3 import S3
 
 
