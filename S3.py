@@ -18,7 +18,7 @@ def push_object(client, bucket, key, object):
         client.put_object(
             Bucket=bucket,
             Key=key,
-            Body=json.dumps(object),
+            Body=json.dumps(object).encode('utf-8'),
             ContentType='application/json'
         )
     except Exception as e:
