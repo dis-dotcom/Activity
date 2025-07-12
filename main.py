@@ -19,3 +19,11 @@ async def log():
         file.writelines(lines)
 
     return now
+
+
+@app.get("/logs")
+async def log():
+    with open('/home/.log', 'r', encoding='utf-8') as file:
+        lines = file.readlines()
+
+    return lines
