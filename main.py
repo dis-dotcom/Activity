@@ -5,13 +5,9 @@ from index import index
 app = FastAPI()
 
 
-@app.get("/")
-async def log():
-    now = Now()
-    lines = [str(now)]
-
-    with open('/home/.log', 'a', encoding='utf-8') as file:
-        file.writelines(lines)
+@app.get("/", response_class=HTMLResponse)
+async def index():
+    log_activity()
 
     return index
 
@@ -24,3 +20,11 @@ async def log():
     return {
         items: lines
     }
+
+
+def log_activity():
+    now = Now()
+    lines = [str(now)]
+
+    with open('/home/.log', 'a', encoding='utf-8') as file:
+        file.writelines(lines)
