@@ -13,7 +13,7 @@ async def root():
 @app.get("/log")
 async def log():
     now = datetime.now()
-    with open('.log', 'a', encoding='utf-8') as file:
+    with open('/home/.log', 'a', encoding='utf-8') as file:
         file.writelines([str(now)])
 
     return now
