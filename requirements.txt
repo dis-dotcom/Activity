@@ -1,15 +1,2 @@
-# Базовые
 fastapi==0.95.2
 uvicorn==0.22.0
-
-# Оптимизация
-gunicorn==20.1.0
-uvloop==0.17.0  # Не работает на Windows!
-
-# БД (пример для PostgreSQL)
-sqlalchemy==2.0.15
-asyncpg==0.27.0
-
-# Безопасность
-python-jose[cryptography]==3.3.0
-passlib[bcrypt]==1.7.4
