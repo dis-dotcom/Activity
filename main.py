@@ -59,6 +59,7 @@ def job():
 def log_activity():
     for id in ids:
         user_info = vk.get_user_info(id)
+
         s3.put_async(
             key=f"{Today()}/{id}/{Now()}.json",
             object=user_info
