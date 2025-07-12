@@ -49,7 +49,7 @@ def job():
 
 def log_activity():
     key = f"{Today()}/{Now()}"
-    s3.put_async(key, {'activity': now})
+    s3.put_async(key, {'activity': Now()})
 
     with open('/home/.log', 'a', encoding='utf-8') as file:
         file.write(now + '\n')
