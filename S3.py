@@ -1,5 +1,6 @@
 import json
 import boto3
+import threading
 
 
 class S3:
@@ -14,6 +15,9 @@ class S3:
             aws_secret_access_key=aws_secret_access_key,
             region_name=region_name
         )
+
+    def put_async(self, key, object):
+        threading.Thread(target=self.put, args=(key, object)).start()
 
     def put(self, key, object):
         json_bytes = json.dumps(object).encode('utf-8')
