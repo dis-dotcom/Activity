@@ -22,8 +22,8 @@ async def version():
 
 @app.get("/api/logs")
 async def log():
-    with open('/home/.log', 'r', encoding='utf-8') as file:
-        lines = file.readlines()
+    #with open('/home/.log', 'r', encoding='utf-8') as file:
+    #    lines = file.readlines()
 
     return {
         lines: 1
