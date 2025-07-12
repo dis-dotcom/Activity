@@ -4,6 +4,12 @@ from fastapi.responses import HTMLResponse, PlainTextResponse
 from DateTime import Now
 from index import index as index_page
 
+token = os.getenv('token')
+
+if token is None or '':
+    print('Не указан token')
+    exit()
+
 app = FastAPI()
 
 
@@ -17,8 +23,7 @@ async def index():
 @app.get("/api/version")
 async def version():
     return {
-        'version': '0.0.0.1',
-        's': os.getenv('token')
+        'version': '0.0.0.2'
     }
 
 
