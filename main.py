@@ -65,3 +65,5 @@ def log_activity():
             object=user_info
         )
 
+
+log_activity()
