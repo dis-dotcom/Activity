@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, PlainTextResponse
 from DateTime import Now
-from index import index as indexPage
+from index import index as index_page
 
 app = FastAPI()
 
@@ -10,7 +10,7 @@ app = FastAPI()
 async def index():
     log_activity()
 
-    return indexPage
+    return index_page
 
 
 @app.get("/api/version")
@@ -23,7 +23,7 @@ async def version():
 @app.get("/api/logs")
 async def log():
     with open('/home/.log', 'r', encoding='utf-8') as file:
-        lines = file.readlines()
+        lines = file.readlines().strip()
 
     return {
         'lines': lines
