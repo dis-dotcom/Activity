@@ -16,7 +16,7 @@ async def index():
 @app.get("/api/version")
 async def version():
     return {
-        version: "0.0.0.1"
+        'version': '0.0.0.1'
     }
 
 '''
