@@ -1,5 +1,4 @@
 import Secret
-import threading
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse, PlainTextResponse
 from DateTime import Now
@@ -34,23 +33,21 @@ async def log():
     return {'lines': content}
 
 
+def job():
+    try:
+        print("Воркер запустился: " + str(Now()))
+        log_activity()
+        print("Воркер завершился: " + str(Now()))
+    except Exception as ex:
+        print(str(ex))
+
+
 def log_activity():
     now = str(Now())
-
-    put_async(now, {'activity': now})
+    s3.put_async(now, {'activity': now})
 
     with open('/home/.log', 'a', encoding='utf-8') as file:
         file.write(now + '\n')
-
-
-def put_async(key, object):
-    threading.Thread(target=s3.put, args=(key, object)).start()
-
-
-def job():
-    print("Воркер запустился: " + str(Now()))
-    log_activity()
-    print("Воркер завершился: " + str(Now()))
 
 
 scheduler = BackgroundScheduler()
