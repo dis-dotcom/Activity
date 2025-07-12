@@ -10,17 +10,18 @@ s3_bucket_name = Secret.get('s3_bucket_name')
 s3_access_key = Secret.get('s3_access_key')
 s3_secret_access_key = Secret.get('s3_secret_access_key')
 
-scheduler = BackgroundScheduler()
-scheduler.add_job(lambda: job(), 'interval', minutes=1)
-
-app = FastAPI()
-
 s3 = S3(
     s3_bucket_name,
     s3_access_key,
     s3_secret_access_key,
     'ru-1'
 )
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(lambda: job(), 'interval', minutes=1)
+
+app = FastAPI()
+
 
 @app.get("/", response_class=HTMLResponse)
 async def index():
