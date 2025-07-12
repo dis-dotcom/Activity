@@ -1,4 +1,3 @@
-import os
 import Secret
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse, PlainTextResponse
