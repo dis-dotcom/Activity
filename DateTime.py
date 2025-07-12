@@ -8,3 +8,10 @@ def Now():
 
     return now_format
 
+
+def Today():
+    now = datetime.now(timezone.utc) + timedelta(hours=3)
+    now_format = now.strftime("%Y-%m-%d)")
+
+    return now_format
+
