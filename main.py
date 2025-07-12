@@ -19,7 +19,7 @@ async def version():
         version: "0.0.0.1"
     }
 
-
+'''
 @app.get("/api/logs")
 async def log():
     #with open('/home/.log', 'r', encoding='utf-8') as file:
@@ -28,7 +28,7 @@ async def log():
     return {
         lines: 1
     }
-
+'''
 
 def log_activity():
     now = Now()
