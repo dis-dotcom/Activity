@@ -12,7 +12,6 @@ s3_access_key = Secret.get('s3_access_key')
 s3_secret_access_key = Secret.get('s3_secret_access_key')
 
 app = FastAPI()
-s3 = get_client(s3_access_key, s3_secret_access_key)
 
 s3 = S3(
     s3_bucket_name,
