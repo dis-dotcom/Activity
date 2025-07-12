@@ -37,9 +37,7 @@ async def log():
 def log_activity():
     now = str(Now())
 
-    put_async(now, {
-        'activity': now
-    })
+    put_async(now, {'activity': now})
 
     with open('/home/.log', 'a', encoding='utf-8') as file:
         file.write(now + '\n')
