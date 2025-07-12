@@ -5,8 +5,6 @@ from fastapi.responses import HTMLResponse, PlainTextResponse
 from DateTime import Now
 from index import index as index_page
 from S3 import S3
-import threading
-
 from apscheduler.schedulers.background import BackgroundScheduler
 
 s3_bucket_name = Secret.get('s3_bucket_name')
@@ -15,12 +13,6 @@ s3_secret_access_key = Secret.get('s3_secret_access_key')
 
 app = FastAPI()
 
-s3 = S3(
-    s3_bucket_name,
-    s3_access_key,
-    s3_secret_access_key,
-    'ru-1'
-)
 scheduler = BackgroundScheduler()
 scheduler.add_job(job, 'interval', minutes=1)
 
