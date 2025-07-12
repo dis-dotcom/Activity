@@ -4,6 +4,7 @@ from fastapi.responses import HTMLResponse, PlainTextResponse
 from DateTime import Now
 from index import index as index_page
 from S3 import S3
+import threading
 
 
 s3_bucket_name = Secret.get('s3_bucket_name')
@@ -48,8 +49,14 @@ def log_activity():
     now = str(Now())
 
     s3.put(now, {
+    put_async(now, {
         'activity': now
     })
 
     with open('/home/.log', 'a', encoding='utf-8') as file:
         file.write(now + '\n')
+
+
+def put_async(key, object):
+    threading.Thread(target=s3.put, args=(key, object)).start()
+
