@@ -17,9 +17,7 @@ async def log():
     with open('/home/.log', 'r', encoding='utf-8') as file:
         lines = file.readlines()
 
-    return {
-        items: lines
-    }
+    return { lines }
 
 
 def log_activity():
