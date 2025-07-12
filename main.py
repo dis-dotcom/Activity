@@ -31,15 +31,7 @@ async def log():
     with open('/home/.log', 'r', encoding='utf-8') as file:
         content = [line.strip() for line in file.readlines()]
 
-    return {
-        'lines': content
-    }
-
-
-def job():
-    print("Воркер запустился: " + str(Now()))
-    log_activity()
-    print("Воркер завершился: " + str(Now()))
+    return {'lines': content}
 
 
 def log_activity():
