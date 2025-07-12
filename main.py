@@ -15,6 +15,7 @@ s3 = S3(
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(lambda: job(), 'interval', minutes=1)
+scheduler.start()
 
 app = FastAPI()
 
