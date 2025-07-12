@@ -47,14 +47,10 @@ async def log():
 
 def log_activity():
     now = str(Now())
-    line = now + '\n'
 
-    error = push_object(s3, s3_bucket_name, now, {
+    s3.put(now, {
         'activity': now
     })
 
-    if error:
-        raise Exception(error)
-
     with open('/home/.log', 'a', encoding='utf-8') as file:
-        file.write(line)
+        file.write(now + '\n')
