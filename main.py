@@ -46,3 +46,12 @@ def log_activity():
 def put_async(key, object):
     threading.Thread(target=s3.put, args=(key, object)).start()
 
+
+def job():
+    print("Воркер запустился: " + str(Now()))
+    log_activity()
+    print("Воркер завершился: " + str(Now()))
+
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(job, 'interval', minutes=1)
