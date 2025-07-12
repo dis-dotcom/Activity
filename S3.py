@@ -16,6 +16,12 @@ class S3:
             region_name=region_name
         )
 
+    def get_objects(self, prefix):
+        return self.s3.list_objects_v2(
+            Bucket=self.bucket,
+            Prefix=prefix
+        )
+
     def put_async(self, key, object):
         threading.Thread(target=self.put, args=(key, object)).start()
 
