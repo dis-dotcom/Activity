@@ -40,15 +40,15 @@ async def log():
 
 def job():
     try:
-        print("Воркер запустился: " + str(Now()))
+        print("Воркер запустился: " + Now())
         log_activity()
-        print("Воркер завершился: " + str(Now()))
+        print("Воркер завершился: " + Now())
     except Exception as ex:
-        print("Воркер завершился с ошибкой: " + str(Now()) + '\n' + str(ex))
+        print("Воркер завершился с ошибкой: " + Now() + '\n' + str(ex))
 
 
 def log_activity():
-    now = str(Now())
+    now = Now()
     s3.put_async(now, {'activity': now})
 
     with open('/home/.log', 'a', encoding='utf-8') as file:
