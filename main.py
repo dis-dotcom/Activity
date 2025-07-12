@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse, PlainTextResponse
 from DateTime import Now
@@ -16,7 +17,8 @@ async def index():
 @app.get("/api/version")
 async def version():
     return {
-        'version': '0.0.0.1'
+        'version': '0.0.0.1',
+        's': os.getenv('token')
     }
 
 
