@@ -17,10 +17,15 @@ class S3:
         )
 
     def get_objects(self, prefix):
-        return self.s3.list_objects_v2(
+        result = self.s3.list_objects_v2(
             Bucket=self.bucket,
             Prefix=prefix
         )
+
+        if 'Contents' in result.keys():
+            return result['Contents']
+
+        return []
 
     def put_async(self, key, object):
         threading.Thread(target=self.put, args=(key, object)).start()
