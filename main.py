@@ -2,7 +2,7 @@ import Secret
 from S3 import S3
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse, PlainTextResponse
-from DateTime import Now
+from DateTime import Now, Today
 from index import index as index_page
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -48,8 +48,8 @@ def job():
 
 
 def log_activity():
-    now = Now()
-    s3.put_async(now, {'activity': now})
+    key = f"{Today()}/{Now()}"
+    s3.put_async(key, {'activity': now})
 
     with open('/home/.log', 'a', encoding='utf-8') as file:
         file.write(now + '\n')
