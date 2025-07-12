@@ -3,4 +3,7 @@ from datetime import datetime, timezone, timedelta
 
 def Now():
     now = datetime.now(timezone.utc) + timedelta(hours=3)
-    return now
+    milliseconds = now.microsecond // 1000
+    
+    return now.strftime("%Y-%m-%d %H:%M:%S") + f".{milliseconds:03d}"
+
