@@ -25,7 +25,7 @@ async def version():
 @app.get("/api/logs", response_class=PlainTextResponse)
 async def log():
     with open('/home/.log', 'r', encoding='utf-8') as file:
-        content = file.read()
+        content = file.readlines()
 
     return content
 
