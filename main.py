@@ -18,8 +18,6 @@ app = FastAPI()
 
 @app.get("/", response_class=HTMLResponse)
 async def index():
-    log_activity()
-
     return index_page
 
 
