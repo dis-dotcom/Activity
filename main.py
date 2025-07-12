@@ -39,12 +39,9 @@ async def version():
     return {'version': '0.0.0.2'}
 
 
-@app.get("/api/logs")
+@app.get("/api/objects")
 async def log():
-    with open('/home/.log', 'r', encoding='utf-8') as file:
-        content = [line.strip() for line in file.readlines()]
-
-    return {'lines': content}
+    return {'objects': s3.get_objects('/')}
 
 
 def job():
