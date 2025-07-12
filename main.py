@@ -3,7 +3,7 @@ import Secret
 from S3 import S3
 from VK import VK
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse, PlainTextResponse
+from fastapi.responses import HTMLResponse
 from DateTime import Now, Today
 from index import index as index_page
 from apscheduler.schedulers.background import BackgroundScheduler
