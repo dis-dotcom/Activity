@@ -1,4 +1,5 @@
 boto3
 requests
 apscheduler
-fastapi[all]
+uvicorn
+fastapi
