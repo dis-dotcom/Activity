@@ -1,1 +1,10 @@
-fastapi[all]
+typing-extensions
+annotated-types
+pydantic-core
+sniffio
+idna
+anyio
+starlette
+pydantic
+fastapi
+unicorn
