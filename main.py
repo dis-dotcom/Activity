@@ -20,14 +20,12 @@ async def version():
     }
 
 
-@app.get("/api/logs")
+@app.get("/api/logs", response_class=PlainTextResponse)
 async def log():
     with open('/home/.log', 'r', encoding='utf-8') as file:
-        lines = file.readlines().strip()
+        content = file.read()
 
-    return {
-        'lines': lines
-    }
+    return content
 
 
 def log_activity():
