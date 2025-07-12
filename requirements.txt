@@ -1,4 +1,3 @@
 boto3
 apscheduler
-fastapi
-unicorn
+fastapi[all]
