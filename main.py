@@ -11,6 +11,8 @@ s3_access_key = Secret.get('s3_access_key')
 s3_secret_access_key = Secret.get('s3_secret_access_key')
 
 app = FastAPI()
+scheduler = BackgroundScheduler()
+scheduler.add_job(lambda: job(), 'interval', minutes=1)
 
 app = FastAPI()
 
@@ -48,7 +50,3 @@ def log_activity():
 
     with open('/home/.log', 'a', encoding='utf-8') as file:
         file.write(now + '\n')
-
-
-scheduler = BackgroundScheduler()
-scheduler.add_job(job, 'interval', minutes=1)
