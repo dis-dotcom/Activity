@@ -10,7 +10,7 @@ async def root():
     return "❤"
 
 
-@app.get("/log")
+@app.get("/")
 async def log():
     now = Now()
     lines = [str(now)]
@@ -18,12 +18,17 @@ async def log():
     with open('/home/.log', 'a', encoding='utf-8') as file:
         file.writelines(lines)
 
-    return now
+    with open('/opt/build/index.html', 'a', encoding='utf-8') as file:
+        content = file.read()
+
+    return content
 
 
-@app.get("/logs")
+@app.get("/api/logs")
 async def log():
     with open('/home/.log', 'r', encoding='utf-8') as file:
         lines = file.readlines()
 
-    return lines
+    return {
+        items: lines
+    }
