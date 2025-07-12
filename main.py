@@ -5,11 +5,6 @@ from DateTime import Now
 app = FastAPI()
 
 
-@app.get("/", response_class=PlainTextResponse)
-async def root():
-    return "❤"
-
-
 @app.get("/")
 async def log():
     now = Now()
