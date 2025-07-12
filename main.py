@@ -44,7 +44,7 @@ def job():
         log_activity()
         print("Воркер завершился: " + str(Now()))
     except Exception as ex:
-        print(str(ex))
+        print("Воркер завершился с ошибкой: " + str(Now()) + '\n' + str(ex))
 
 
 def log_activity():
