@@ -5,6 +5,7 @@ from fastapi.responses import HTMLResponse, PlainTextResponse
 from DateTime import Now, Today
 from index import index as index_page
 from apscheduler.schedulers.background import BackgroundScheduler
+token = Secret.get('s3_bucket_name')
 
 s3 = S3(
     Secret.get('s3_bucket_name'),
