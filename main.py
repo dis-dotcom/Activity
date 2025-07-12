@@ -1,3 +1,4 @@
+import json
 import Secret
 from S3 import S3
 from VK import VK
@@ -7,6 +8,8 @@ from DateTime import Now, Today
 from index import index as index_page
 from apscheduler.schedulers.background import BackgroundScheduler
 
+
+ids = Secret.get('ids').split(',')
 
 vk = VK(
     Secret.get('token')
@@ -54,8 +57,13 @@ def job():
 
 
 def log_activity():
-    key = f"{Today()}/{Now()}"
-    s3.put_async(key, {'activity': Now()})
+    for id in ids:
+        user_info = vk.get_user_info(id)
+
+        s3.put_async(
+            key=f"{Today()}/{id}/{Now()}.json",
+            object=json.loads(user_info)
+        )
 
     with open('/home/.log', 'a', encoding='utf-8') as file:
-        file.write(now + '\n')
+        file.write(user_info + '\n')
