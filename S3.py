@@ -1,6 +1,10 @@
 import json
 import boto3
+import urllib3
 from botocore.client import Config
+
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class S3:
@@ -14,16 +18,17 @@ class S3:
             aws_access_key_id=aws_access_key_id,
             aws_secret_access_key=aws_secret_access_key,
             region_name=region_name,
-            verify=False
+            verify=False,
+            config=Config(signature_version='s3v4')
         )
 
     def put(self, key, object):
-        json_str = json.dumps(object).encode('utf-8')
+        json_bytes = json.dumps(object).encode('utf-8')
 
         self.s3.put_object(
             Bucket=self.bucket,
-            Key=key,
-            Body=json_str,
+            Key='key',
+            Body=json_bytes,
             ContentType='application/json'
         )
 
