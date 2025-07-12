@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.responses import PlainTextResponse
 from DateTime import Now
 from index import index
+
 app = FastAPI()
 
 
@@ -14,7 +15,9 @@ async def index():
 
 @app.get("/api/version")
 async def version():
-    return "0.0.0.1"
+    return {
+        version: "0.0.0.1"
+    }
 
 
 @app.get("/api/logs")
