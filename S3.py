@@ -3,26 +3,26 @@ import boto3
 from botocore.client import Config
 
 
-def get_client(access_key, secret_access_key):
-    return boto3.client('s3',
-        endpoint_url='https://s3.twcstorage.ru',
-        aws_access_key_id=access_key,
-        aws_secret_access_key=secret_access_key,
-        region_name='ru-1',
-        config=Config(
-            signature_version='s3',
-            s3={'addressing_style': 'path'}
+class S3:
+    def __init__(self, bucket, aws_access_key_id, aws_secret_access_key, region_name):
+        self.endpoint_url = 'https://s3.twcstorage.ru'
+        self.bucket = bucket
+
+        self.s3 = boto3.client(
+            's3',
+            endpoint_url=endpoint_url,
+            aws_access_key_id=aws_access_key_id,
+            aws_secret_access_key=aws_secret_access_key,
+            region_name=region_name
         )
-    )
 
+    def put(self, key, object):
+        json_str = json.dumps(object).encode('utf-8')
 
-def push_object(client, bucket, key, object):
-    try:
-        client.put_object(
-            Bucket=bucket,
+        s3.put_object(
+            Bucket=self.bucket,
             Key=key,
-            Body=json.dumps(object).encode('utf-8'),
+            Body=json_str,
             ContentType='application/json'
         )
-    except Exception as e:
-        return str(e)
+
