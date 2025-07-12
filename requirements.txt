@@ -1,2 +1,2 @@
-fastapi[all]
 boto3
+fastapi[all]
