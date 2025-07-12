@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.responses import PlainTextResponse
-from datetime import datetime
+from DateTime import Now
 
 app = FastAPI()
 
@@ -12,8 +12,10 @@ async def root():
 
 @app.get("/log")
 async def log():
-    now = datetime.now()
+    now = Now()
+    lines = [str(now)]
+
     with open('/home/.log', 'a', encoding='utf-8') as file:
-        file.writelines([str(now)])
+        file.writelines(lines)
 
     return now
