@@ -13,8 +13,7 @@ s3_secret_access_key = Secret.get('s3_secret_access_key')
 
 app = FastAPI()
 
-scheduler = BackgroundScheduler()
-scheduler.add_job(job, 'interval', minutes=1)
+app = FastAPI()
 
 
 @app.get("/", response_class=HTMLResponse)
