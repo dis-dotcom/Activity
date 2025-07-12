@@ -1,0 +1,12 @@
+index = '''
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Logs</title>
+</head>
+<body>
+
+</body>
+</html>
+'''
