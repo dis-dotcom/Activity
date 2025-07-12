@@ -65,6 +65,3 @@ def log_activity():
             object=user_info
         )
 
-    with open('/home/.log', 'a', encoding='utf-8') as file:
-        file.write(user_info + '\n')
-        file.write(json.dumps(user_info) + '\n')
