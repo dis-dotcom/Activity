@@ -30,7 +30,7 @@ async def version():
 @app.get("/api/logs")
 async def log():
     with open('/home/.log', 'r', encoding='utf-8') as file:
-        content = file.readlines()
+        content = [line.strip() for line in file.readlines()]
 
     return {
         'lines': content
