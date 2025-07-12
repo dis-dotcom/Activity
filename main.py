@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import PlainTextResponse
 from DateTime import Now
-
+from index import index
 app = FastAPI()
 
 
@@ -13,10 +13,7 @@ async def log():
     with open('/home/.log', 'a', encoding='utf-8') as file:
         file.writelines(lines)
 
-    with open('/opt/build/index.html', 'a', encoding='utf-8') as file:
-        content = file.read()
-
-    return content
+    return index
 
 
 @app.get("/api/logs")
