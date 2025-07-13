@@ -22,15 +22,21 @@ def run_internal(s3: S3):
 def merge(s3: S3, files: list):
     objects = []
 
-    if len(files) > 10:
-        files = files[:10]
+    if len(files) > 60:
+        files = files[:60]
 
     for file in files:
         obj = s3.get_object(file['full_path'])
-        obj['created_at'] = str(file['file_name']).rstrip('.json')
+        if type(obj) == type([]):
+            [objects.append(x) for x in obj]
+        else:
+            obj['created_at'] = str(file['file_name']).rstrip('.json')
         objects.append(obj)
 
-    s3.put(files[0]['full_path'], objects)
+    key, keys = get_keys(list(map(lambda x: x['full_path'], files)))
+
+    s3.put(key, objects)
+    [s3.delete_by_key(key) for key in keys]
 
 
 def group_by(selector, items) -> dict:
@@ -42,6 +48,13 @@ def group_by(selector, items) -> dict:
 
     return groups
 
+
+def get_keys(keys: list) -> (str, list):
+    keys = list(sorted(set(keys)))
+    key = keys[0]
+    keys.remove(key)
+
+    return key, keys
 
 def get_file_info(x: dict):
     result = x['Key'].split(sep='/')
