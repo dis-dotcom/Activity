@@ -36,7 +36,10 @@ def merge(s3: S3, files: list):
     key, keys = get_keys(list(map(lambda x: x['full_path'], files)))
 
     s3.put(key, objects)
-    [s3.delete_by_key(key) for key in keys]
+
+    for key in keys:
+        s3.delete_by_key(key)
+        print(f'DELETED {key}')
 
 
 def group_by(selector, items) -> dict:
