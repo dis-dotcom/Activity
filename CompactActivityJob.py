@@ -34,11 +34,11 @@ def group_by(selector, items) -> dict:
     return groups
 
 
-def get_file_info(x: str):
-    result = x.split(sep='/')
+def get_file_info(x: dict):
+    result = x['Key'].split(sep='/')
 
     return {
-        'full_path': x,
+        'full_path': x['Key'],
         'date': result[0],
         'id': result[1],
         'file_name': result[2]
