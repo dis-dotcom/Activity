@@ -1,6 +1,7 @@
 from S3 import S3
 from VK import VK
 from Secret import get
+from Logger import Logger
 from DateTime import Now, Today, ToDateTime
 
 
@@ -33,4 +34,4 @@ def log_activity(now, x: str, vk: VK, s3: S3):
 
     s3.put_async(key=key,obj=user_info)
 
-    print(f'INF0:\tСоздан файл {key}')
+    Logger.info(f'Создан файл {key}')
