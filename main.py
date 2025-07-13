@@ -62,6 +62,8 @@ def log_activity():
                 first = user_info['response'][0]
                 if 'last_seen' in first.keys():
                     user_info['last_activity'] = ToDateTime(first['last_seen']['time'], +3)
+                if 'online' in first.keys():
+                    user_info['online'] = str(first['online']) == '1'
 
         s3.put_async(
             key=f"{Today()}/{id}/{Now()}.json",
