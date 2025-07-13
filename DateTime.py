@@ -1,12 +1,12 @@
 from datetime import datetime, timezone, timedelta
 
 
-def Now():
+def Now() -> str:
     now = datetime.now(timezone.utc) + timedelta(hours=3)
     return formatDateTime(now)
 
 
-def Today():
+def Today() -> str:
     now = datetime.now(timezone.utc) + timedelta(hours=3)
     return formatDate(now)
 
