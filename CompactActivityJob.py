@@ -14,8 +14,8 @@ def run(s3: S3):
 def run_internal(s3: S3):
     objects = [get_file_info(obj) for obj in s3.get_objects('')]
 
-    for _, groups_id in group_by(lambda x: x['id'], objects):
-        for _, groups_date in group_by(lambda x: x['date'], groups_id):
+    for groups_id in group_by(lambda x: x['id'], objects).values():
+        for groups_date in group_by(lambda x: x['date'], groups_id).values():
             if len(groups_date) > 1: merge(groups_date)
 
 
