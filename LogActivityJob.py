@@ -24,7 +24,9 @@ def run(vk: VK, s3: S3):
 
             try:
                 online = str(user_info['response'][0]['online']) == '1'
+                mobile = str(user_info['response'][0]['online_mobile']) == '1'
                 user_info['online'] = online
+                user_info['mobile'] = mobile
             except Exception as ex:
                 Logger.error('Не удалось установить "online"', ex)
 
