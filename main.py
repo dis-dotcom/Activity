@@ -21,10 +21,11 @@ s3 = S3(
     'ru-1'
 )
 
-#scheduler = BackgroundScheduler()
-#scheduler.add_job(lambda: LogActivityJob.run(vk, s3), 'interval', minutes=1)
-#scheduler.add_job(lambda: CompactActivityJob.run(s3), 'interval', minutes=1)
-#scheduler.start()
+scheduler = BackgroundScheduler()
+scheduler.add_job(lambda: LogActivityJob.run(vk, s3), 'interval', minutes=1)
+# Временно выключено #
+# scheduler.add_job(lambda: CompactActivityJob.run(s3), 'interval', minutes=1)
+scheduler.start()
 
 app = FastAPI()
 
@@ -33,10 +34,4 @@ app = FastAPI()
 async def index():
     return index_page
 
-
-@app.get("/api/jobs/{job}/run")
-async def job_run(job: str):
-    if job == 'LogActivityJob':
-        LogActivityJob.run(vk, s3)
-    if job == 'CompactActivityJob':
-        CompactActivityJob.run(s3)
+LogActivityJob.run(vk, s3)
