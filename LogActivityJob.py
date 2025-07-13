@@ -32,5 +32,5 @@ def log_activity(now, x: str, vk: VK, s3: S3):
 
     s3.put_async(
         key=f"{today}/{x}/{now}.json",
-        object=user_info
+        obj=user_info
     )
