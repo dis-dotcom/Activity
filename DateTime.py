@@ -2,17 +2,24 @@ from datetime import datetime, timezone, timedelta
 
 
 def Now() -> str:
-    now = datetime.now(timezone.utc) + timedelta(hours=3)
-    return formatDateTime(now)
+    utc = datetime.now(timezone.utc)
+    local = utc + timedelta(hours=3)
+
+    return formatDateTime(local)
 
 
 def Today() -> str:
-    now = datetime.now(timezone.utc) + timedelta(hours=3)
-    return formatDate(now)
+    utc = datetime.now(timezone.utc)
+    local = utc + timedelta(hours=3)
+
+    return formatDate(local)
 
 
-def ToDateTime(ticks, utc=0):
-    return formatDateTime(datetime.fromtimestamp(ticks) + timedelta(hours=utc))
+def ToDateTime(ticks, hours=0):
+    utc = datetime.fromtimestamp(ticks, tz=timezone.utc)
+    local = utc + timedelta(hours=hours)
+
+    return formatDateTime(local)
 
 
 def formatDateTime(x):
