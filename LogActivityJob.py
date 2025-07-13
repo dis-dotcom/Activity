@@ -16,6 +16,7 @@ def run(vk: VK, s3: S3):
 
 def log_activity(now, x: str, vk: VK, s3: S3):
     today = Today()
+    key = f"{today}/{x}/{now}.json"
     user_info = vk.get_user_info(x)
 
     try:
@@ -30,7 +31,6 @@ def log_activity(now, x: str, vk: VK, s3: S3):
     except Exception as ex:
         print(ex)
 
-    s3.put_async(
-        key=f"{today}/{x}/{now}.json",
-        obj=user_info
-    )
+    s3.put_async(key=key,obj=user_info)
+
+    print(f'INF0:\tСоздан файл {key}')
