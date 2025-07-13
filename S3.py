@@ -45,3 +45,8 @@ class S3:
         response = self.s3.get_object(Bucket=self.bucket, Key=key)
 
         return response['Body'].read().decode('utf-8')
+
+    def get_object(self, key):
+        response = self.s3.get_object(Bucket=self.bucket, Key=key)
+
+        return json.loads(response['Body'].read().decode('utf-8'))
