@@ -41,7 +41,7 @@ async def version():
 
 @app.get("/api/objects")
 async def log():
-    return {'objects': s3.get_objects('')}
+    return {'objects': s3.get_objects('')[:10]}
 
 
 def job():
