@@ -15,6 +15,14 @@ def Today() -> str:
     return formatDate(local)
 
 
+def Yesterday() -> str:
+    utc = datetime.now(timezone.utc)
+    yesterday = utc - timedelta(hours=24)
+    local = yesterday + timedelta(hours=3)
+
+    return formatDate(local)
+
+
 def ToDateTime(ticks, hours=0):
     utc = datetime.fromtimestamp(ticks, tz=timezone.utc)
     local = utc + timedelta(hours=hours)
