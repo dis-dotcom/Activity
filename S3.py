@@ -40,3 +40,8 @@ class S3:
             ContentType='application/json',
             ContentLength=len(json_bytes)
         )
+
+    def get_string(self, key):
+        response = self.s3.get_object(Bucket=self.bucket, Key=key)
+
+        return response['Body'].read().decode('utf-8')
