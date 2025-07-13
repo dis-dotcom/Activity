@@ -4,7 +4,7 @@ from S3 import S3
 from VK import VK
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from DateTime import Now, Today
+from DateTime import Now, Today, ToDateTime
 from index import index as index_page
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -56,6 +56,9 @@ def job():
 def log_activity():
     for id in ids:
         user_info = vk.get_user_info(id)
+
+        if 'last_seen' in user_info.keys():
+            user_info['last_activity'] = ToDateTime(user_info['last_seen']['time'])
 
         s3.put_async(
             key=f"{Today()}/{id}/{Now()}.json",
