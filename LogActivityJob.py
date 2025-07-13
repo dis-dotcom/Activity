@@ -49,8 +49,6 @@ def run(vk: VK, s3: S3):
 
             s3.put_async(key, user_info)
 
-            Logger.info(f'Создан файл {key}')
-
         Logger.info(f"Воркер {job_name} завершился: {Now()}")
     except Exception as ex:
         Logger.error(f"Воркер {job_name} завершился с ошибкой: {Now()}", ex)
