@@ -27,7 +27,7 @@ class S3:
     def put_async(self, key, obj: dict):
         threading.Thread(target=self.put, args=(key, obj)).start()
 
-    def put(self, key, obj: dict):
+    def put(self, key, obj):
         json_bytes = json.dumps(obj).encode('utf-8')
 
         self.s3.put_object(
@@ -47,3 +47,9 @@ class S3:
         response = self.s3.get_object(Bucket=self.bucket, Key=key)
 
         return json.loads(response['Body'].read().decode('utf-8'))
+
+    def delete_by_key(self, key):
+        self.s3.delete_object(
+            Bucket=self.bucket,
+            Key=key
+        )
