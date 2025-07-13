@@ -32,14 +32,11 @@ async def index():
     return index_page
 
 
-@app.get("/api/version")
-async def version():
-    return {'version': '0.0.0.2'}
+@app.get("/api/objects/")
+async def log(date: str, id: str, count: int):
+    path = f'{date}/{id}'
 
-
-@app.get("/api/objects")
-async def log():
-    return {'objects': s3.get_objects('')[:10]}
+    return {'objects': s3.get_objects(path)[:count]}
 
 
 LogActivityJob.run(vk, s3)
