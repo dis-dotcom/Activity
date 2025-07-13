@@ -11,8 +11,8 @@ def Today():
     return formatDate(now)
 
 
-def ToDateTime(ticks):
-    return formatDateTime(datetime.fromtimestamp(ticks))
+def ToDateTime(ticks, utc=0):
+    return formatDateTime(datetime.fromtimestamp(ticks) + timedelta(hours=utc))
 
 
 def formatDateTime(x):
