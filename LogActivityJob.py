@@ -16,6 +16,8 @@ def run(vk: VK, s3: S3):
         for x, key in ((x, f"{today}/{x}/{now}.json") for x in get('ids', ',')):
             user_info = vk.get_user_info(x)
 
+            user_info['created_at'] = now
+
             try:
                 ticks = user_info['response'][0]['last_seen']['time']
                 user_info['last_activity'] = ToDateTime(ticks, +3)
