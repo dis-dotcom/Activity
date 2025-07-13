@@ -1,8 +1,6 @@
 import os
 
 
-
-
 def get(arg_name, sep=None):
     arg = secrets[arg_name] if isLocal else os.getenv(arg_name)
 
