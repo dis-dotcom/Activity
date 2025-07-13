@@ -47,6 +47,15 @@ def run(vk: VK, s3: S3):
             except Exception as ex:
                 Logger.error('Не удалось установить "platform"', ex)
 
+            try:
+                first_name = user_info['response'][0]['first_name']
+                last_name = user_info['response'][0]['last_name']
+                user_info['sep1'] = '- - - - -'
+                user_info['user'] = f'{first_name} {last_name}'
+                user_info['sep2'] = '- - - - -'
+            except Exception as ex:
+                Logger.error('Не удалось установить "user"', ex)
+
             user_info['created_at'] = now
 
             user_info['source'] = user_info['response'][0]
