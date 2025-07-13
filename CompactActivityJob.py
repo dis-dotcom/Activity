@@ -16,17 +16,26 @@ def run_internal(s3: S3):
 
     for groups_id in group_by(lambda x: x['id'], objects).values():
         for groups_date in group_by(lambda x: x['date'], groups_id).values():
-            if len(groups_date) > 1: merge(groups_date)
+            if len(groups_date) > 1: merge(s3, groups_date)
 
 
-def merge(files):
+def merge(s3: S3, files: list):
+    objects = []
+
+    if len(files) > 10:
+        files = files[:10]
+
     for file in files:
-        print(file['full_path'])
+        obj = s3.get_object(file['full_path'])
+        obj['created_at'] = str(file['file_name']).rstrip('.json')
+        objects.append(obj)
+
+    s3.put(files[0]['full_path'], objects)
 
 
 def group_by(selector, items) -> dict:
     groups = {}
-    for key, value in [(selector(item), item) for item in items]:
+    for key, value in ((selector(item), item) for item in items):
         if key not in groups.keys():
             groups[key] = []
         groups[key].append(value)
