@@ -23,7 +23,7 @@ s3 = S3(
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(lambda: LogActivityJob.run(vk, s3), 'interval', minutes=1)
-scheduler.add_job(lambda: CompactActivityJob.run(s3), 'interval', minutes=60)
+scheduler.add_job(lambda: CompactActivityJob.run(s3), 'interval', minutes=1)
 scheduler.start()
 
 app = FastAPI()
