@@ -16,14 +16,6 @@ def run(vk: VK, s3: S3):
         for x, key in ((x, f"{today}/{x}/{now}.json") for x in get('ids', ',')):
             user_info = vk.get_user_info(x)
 
-            user_info['created_at'] = now
-
-            try:
-                ticks = user_info['response'][0]['last_seen']['time']
-                user_info['last_activity'] = ToDateTime(ticks, +3)
-            except Exception as ex:
-                Logger.error('Не удалось установить "last_activity"', ex)
-
             try:
                 online = user_info['response'][0]['online'] == 1
                 user_info['online'] = online
@@ -32,6 +24,12 @@ def run(vk: VK, s3: S3):
                     user_info['mobile'] = True
             except Exception as ex:
                 Logger.error('Не удалось установить "online"', ex)
+
+            try:
+                ticks = user_info['response'][0]['last_seen']['time']
+                user_info['last_activity'] = ToDateTime(ticks, +3)
+            except Exception as ex:
+                Logger.error('Не удалось установить "last_activity"', ex)
 
             try:
                 platforms = {
@@ -48,6 +46,8 @@ def run(vk: VK, s3: S3):
                 user_info['last_activity_platform'] = platforms.get(i, f'{i} - Неизвестно')
             except Exception as ex:
                 Logger.error('Не удалось установить "platform"', ex)
+
+            user_info['created_at'] = now
 
             user_info['source'] = user_info['response'][0]
             del user_info['response']
