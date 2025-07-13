@@ -57,8 +57,11 @@ def log_activity():
     for id in ids:
         user_info = vk.get_user_info(id)
 
-        if 'last_seen' in user_info.keys():
-            user_info['last_activity'] = ToDateTime(user_info['last_seen']['time'])
+        if 'response' in user_info.keys():
+            if len(user_info['response']) > 0:
+                first = user_info['response'][0]
+                if 'last_seen' in first.keys():
+                    user_info['last_activity'] = ToDateTime(first['last_seen']['time'])
 
         s3.put_async(
             key=f"{Today()}/{id}/{Now()}.json",
