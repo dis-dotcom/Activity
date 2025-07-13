@@ -20,7 +20,7 @@ def log_activity(now, x: str, vk: VK, s3: S3):
 
     try:
         ticks = user_info['response'][0]['last_seen']['time']
-        user_info['last_activity'] = ToDateTime(utc=+3, ticks=ticks)
+        user_info['last_activity'] = ToDateTime(ticks, +3)
     except Exception as ex:
         print(ex)
 
