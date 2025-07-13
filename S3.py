@@ -22,16 +22,13 @@ class S3:
             Prefix=prefix
         )
 
-        if 'Contents' in result.keys():
-            return result['Contents']
+        return [] if 'Contents' not in result else result['Contents']
 
-        return []
+    def put_async(self, key, obj: dict):
+        threading.Thread(target=self.put, args=(key, obj)).start()
 
-    def put_async(self, key, object):
-        threading.Thread(target=self.put, args=(key, object)).start()
-
-    def put(self, key, object):
-        json_bytes = json.dumps(object).encode('utf-8')
+    def put(self, key, obj: dict):
+        json_bytes = json.dumps(obj).encode('utf-8')
 
         self.s3.put_object(
             Bucket=self.bucket,
