@@ -6,27 +6,31 @@ from DateTime import Now, Today, ToDateTime
 
 def run(vk: VK, s3: S3):
     try:
-        print("Воркер запустился: " + Now())
-        [log_activity(x, vk, s3) for x in get('ids', ',')]
-        print("Воркер завершился: " + Now())
+        now = Now()
+        print(f"Воркер запустился: {now}")
+        [log_activity(now, x, vk, s3) for x in get('ids', ',')]
+        print(f"Воркер завершился: " + Now())
     except Exception as ex:
-        print("Воркер завершился с ошибкой: " + Now() + '\n' + str(ex))
+        print(f"Воркер завершился с ошибкой: {Now()}" + '\n' + str(ex))
 
 
-def log_activity(x: str, vk: VK, s3: S3):
+def log_activity(now, x: str, vk: VK, s3: S3):
+    today = Today()
     user_info = vk.get_user_info(x)
 
-    if 'response' not in user_info.keys(): return
-    if type(user_info['response']) != type([]): return
-    if len(user_info['response']) == 0: return
+    try:
+        ticks = user_info['response'][0]['last_seen']['time']
+        user_info['last_activity'] = ToDateTime(utc=+3, ticks=ticks)
+    except Exception as ex:
+        print(ex)
 
-    if 'last_seen' in user_info['response'][0].keys():
-        user_info['last_activity'] = ToDateTime(user_info['response'][0]['last_seen']['time'], +3)
-
-    if 'online' in user_info['response'][0].keys():
-        user_info['online'] = str(user_info['response'][0]['online']) == '1'
+    try:
+        online = str(user_info['response'][0]['online']) == '1'
+        user_info['online'] = online
+    except Exception as ex:
+        print(ex)
 
     s3.put_async(
-        key=f"{Today()}/{x}/{Now()}.json",
+        key=f"{today}/{x}/{now}.json",
         object=user_info
     )
