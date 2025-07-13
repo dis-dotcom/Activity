@@ -24,7 +24,7 @@ class S3:
 
         return [] if 'Contents' not in result else result['Contents']
 
-    def put_async(self, key, obj: dict):
+    def put_async(self, key, obj):
         threading.Thread(target=self.put, args=(key, obj)).start()
 
     def put(self, key, obj):
