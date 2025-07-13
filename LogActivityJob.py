@@ -42,7 +42,7 @@ def run(vk: VK, s3: S3):
                 }
 
                 i = user_info['response'][0]['last_seen']['platform']
-                user_info['platform'] = platforms.get(i, i)
+                user_info['last_activity_platform'] = platforms.get(i, f'{i} - Неизвестно')
             except Exception as ex:
                 Logger.error('Не удалось установить "platform"', ex)
 
