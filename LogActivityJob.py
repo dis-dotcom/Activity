@@ -49,6 +49,9 @@ def run(vk: VK, s3: S3):
             except Exception as ex:
                 Logger.error('Не удалось установить "platform"', ex)
 
+            user_info['source'] = user_info['response'][0]
+            del user_info['response']
+
             s3.put_async(key, user_info)
 
         Logger.info(f"Воркер {job_name} завершился: {Now()}")
