@@ -9,7 +9,7 @@ from index import index as index_page
 from apscheduler.schedulers.background import BackgroundScheduler
 
 
-ids = Secret.get('ids').split(',')
+ids = Secret.get('ids', ',')
 
 vk = VK(
     Secret.get('token')
