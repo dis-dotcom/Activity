@@ -24,13 +24,13 @@ def log_activity(now, x: str, vk: VK, s3: S3):
         ticks = user_info['response'][0]['last_seen']['time']
         user_info['last_activity'] = ToDateTime(ticks, +3)
     except Exception as ex:
-        print(ex)
+        Logger.error('Не удалось установить "last_activity"', ex)
 
     try:
         online = str(user_info['response'][0]['online']) == '1'
         user_info['online'] = online
     except Exception as ex:
-        print(ex)
+        Logger.error('Не удалось установить "online"', ex)
 
     s3.put_async(key=key,obj=user_info)
 
