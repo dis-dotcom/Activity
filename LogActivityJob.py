@@ -28,6 +28,22 @@ def run(vk: VK, s3: S3):
             except Exception as ex:
                 Logger.error('Не удалось установить "online"', ex)
 
+            try:
+                platforms = {
+                    1: 'Мобильная версия',
+                    2: 'Приложение для iPhone',
+                    3: 'Приложение для iPad',
+                    4: 'Приложение для Android',
+                    5: 'Приложение для Windows Phone',
+                    6: 'Приложение для Windows 10',
+                    7: 'Мобильная версия',
+                }
+
+                i = user_info['response'][0]['last_seen']['platform']
+                user_info['platform'] = platforms.get(i, i)
+            except Exception as ex:
+                Logger.error('Не удалось установить "platform"', ex)
+
             s3.put_async(key, user_info)
 
             Logger.info(f'Создан файл {key}')
