@@ -1,6 +1,7 @@
 import json
 import boto3
 import threading
+from Logger import Logger
 
 
 class S3:
@@ -37,6 +38,8 @@ class S3:
             ContentType='application/json',
             ContentLength=len(json_bytes)
         )
+
+        Logger.info(f'Создан файл {key}')
 
     def get_string(self, key):
         response = self.s3.get_object(Bucket=self.bucket, Key=key)
