@@ -23,10 +23,11 @@ def run(vk: VK, s3: S3):
                 Logger.error('Не удалось установить "last_activity"', ex)
 
             try:
-                online = str(user_info['response'][0]['online']) == '1'
-                mobile = str(user_info['response'][0]['online_mobile']) == '1'
+                online = user_info['response'][0]['online'] == 1
                 user_info['online'] = online
-                user_info['mobile'] = mobile
+
+                if online and user_info['response'][0].get('online_mobile', 0) == 1:
+                    user_info['mobile'] = True
             except Exception as ex:
                 Logger.error('Не удалось установить "online"', ex)
 
