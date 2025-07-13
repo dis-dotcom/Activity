@@ -1,5 +1,6 @@
 import Secret
 import LogActivityJob
+import CompactActivityJob
 
 from S3 import S3
 from VK import VK
@@ -22,6 +23,7 @@ s3 = S3(
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(lambda: LogActivityJob.run(vk, s3), 'interval', minutes=1)
+scheduler.add_job(lambda: CompactActivityJob.run(s3), 'interval', minutes=60)
 scheduler.start()
 
 app = FastAPI()
@@ -39,4 +41,4 @@ async def log(date: str, id: str, count: int):
     return {'objects': s3.get_objects(path)[:count]}
 
 
-LogActivityJob.run(vk, s3)
+CompactActivityJob.run(s3)
