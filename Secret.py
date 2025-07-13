@@ -14,5 +14,3 @@ def get(arg_name, sep=None):
         arg = arg.split(sep)
 
     return arg
-
-
