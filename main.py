@@ -1,12 +1,9 @@
 import Secret
 import LogActivityJob
-import CompactActivityJob
 
 from S3 import S3
 from VK import VK
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
-from index import index as index_page
 from apscheduler.schedulers.background import BackgroundScheduler
 
 
@@ -23,15 +20,8 @@ s3 = S3(
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(lambda: LogActivityJob.run(vk, s3), 'interval', minutes=1)
-# Временно выключено #
-# scheduler.add_job(lambda: CompactActivityJob.run(s3), 'interval', minutes=1)
 scheduler.start()
 
 app = FastAPI()
-
-
-@app.get("/", response_class=HTMLResponse)
-async def index():
-    return index_page
 
 LogActivityJob.run(vk, s3)
