@@ -29,3 +29,8 @@ app = FastAPI()
 @app.get("/")
 def index():
     return {"now": DateTime.Now()}
+
+
+@app.get("/{prefix}")
+def get_by_prefix(prefix: str):
+    return s3.get_objects(prefix)
