@@ -1,3 +1,4 @@
+import DateTime
 import Secret
 import LogActivityJob
 
@@ -24,4 +25,7 @@ scheduler.start()
 
 app = FastAPI()
 
-LogActivityJob.run(vk, s3)
+
+@app.get("/")
+def index():
+    return {"now": DateTime.Now()}
