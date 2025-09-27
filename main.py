@@ -1,6 +1,7 @@
 import DateTime
 import Secret
 import LogActivityJob
+import random
 
 from S3 import S3
 from VK import VK
@@ -33,4 +34,6 @@ def index():
 
 @app.get("/{prefix}")
 def get_by_prefix(prefix: str):
-    return s3.get_objects(prefix)
+    key = random.choice(s3.get_objects(prefix))["Key"]
+
+    return s3.get_object(key)
