@@ -31,9 +31,3 @@ app = FastAPI()
 def index():
     return {"now": DateTime.Now()}
 
-
-@app.get("/{prefix}")
-def get_by_prefix(prefix: str):
-    key = random.choice(s3.get_objects(prefix))["Key"]
-
-    return s3.get_object(key)
