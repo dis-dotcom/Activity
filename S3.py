@@ -5,16 +5,16 @@ from Logger import Logger
 
 
 class S3:
-    def __init__(self, bucket, aws_access_key_id, aws_secret_access_key, region_name):
+    def __init__(self, settings):
         self.endpoint_url = 'http://s3.twcstorage.ru'
-        self.bucket = bucket
+        self.bucket = settings['s3']['bucket']
 
         self.s3 = boto3.client(
             's3',
             endpoint_url=self.endpoint_url,
-            aws_access_key_id=aws_access_key_id,
-            aws_secret_access_key=aws_secret_access_key,
-            region_name=region_name
+            aws_access_key_id=settings['s3']['access_key'],
+            aws_secret_access_key=settings['s3']['secret_access_key'],
+            region_name=settings['s3']['region_name']
         )
 
     def get_objects(self, prefix):
