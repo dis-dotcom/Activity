@@ -1,7 +1,6 @@
 import DateTime
 import Secret
 import LogActivityJob
-import random
 
 from S3 import S3
 from VK import VK
