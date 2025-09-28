@@ -39,7 +39,7 @@ async def logs():
                 <title>Постепенная загрузка</title>
             </head>
             <body>
-                <ul>
+                <ul style="font-family: monospace">
         """
 
         for message in Logger.Logger.logs:
