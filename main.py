@@ -39,12 +39,16 @@ async def logs():
                 <title>Постепенная загрузка</title>
             </head>
             <body>
+                <ul>
         """
 
         for message in Logger.Logger.logs:
-            yield f"<p>{message}</p>"
+            yield "<li>"
+            yield message
+            yield "</li>"
 
         yield """
+                </ul>
             </body>
             </html>
         """
