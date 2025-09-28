@@ -29,20 +29,28 @@ scheduler.start()
 app = FastAPI()
 
 
-async def generate_html():
-    yield "<!DOCTYPE html>"
-    yield "<html><head><title>Постепенная загрузка</title></head>"
-    yield "<body>"
-    for x in Logger.Logger.logs.reverse():
-        yield f"<p>{x}</p>"
-    yield "</body>"
-    yield "</html>"
-
-
 @app.get("/logs")
 async def logs():
+    async def content():
+        yield """
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Постепенная загрузка</title>
+            </head>
+            <body>
+        """
+
+        for message in Logger.Logger.logs:
+            yield f"<p>{message}</p>"
+
+        yield """
+            </body>
+            </html>
+        """
+
     return StreamingResponse(
-        generate_html(),
+        content(),
         media_type="text/html"
     )
 
