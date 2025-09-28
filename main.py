@@ -1,10 +1,11 @@
-import DateTime
+import Logger
 import LogActivityJob
 
 from Secret import get
 from S3 import S3
 from VK import VK
 from fastapi import FastAPI
+from fastapi.responses import StreamingResponse
 from apscheduler.schedulers.background import BackgroundScheduler
 
 settings = {
@@ -28,7 +29,20 @@ scheduler.start()
 app = FastAPI()
 
 
-@app.get("/")
-def index():
-    return {"now": DateTime.Now()}
+async def generate_html():
+    yield "<!DOCTYPE html>"
+    yield "<html><head><title>Постепенная загрузка</title></head>"
+    yield "<body>"
+    for x in Logger.Logger.logs.reverse():
+        yield f"<p>{x}</p>"
+    yield "</body>"
+    yield "</html>"
+
+
+@app.get("/logs")
+async def logs():
+    return StreamingResponse(
+        generate_html(),
+        media_type="text/html"
+    )
 
