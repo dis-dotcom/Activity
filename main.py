@@ -1,23 +1,25 @@
 import DateTime
-import Secret
 import LogActivityJob
 
+from Secret import get
 from S3 import S3
 from VK import VK
 from fastapi import FastAPI
 from apscheduler.schedulers.background import BackgroundScheduler
 
+settings = {
+    'vk': {
+        'token': get('token')
+    },
+    's3': {
+        'bucket': get('s3_bucket_name'),
+        'access_key': get('s3_access_key'),
+        'secret_access_key': get('s3_secret_access_key'),
+        'region_name': 'ru-1'
+    }
+}
 
-vk = VK(
-    Secret.get('token')
-)
-
-s3 = S3(
-    Secret.get('s3_bucket_name'),
-    Secret.get('s3_access_key'),
-    Secret.get('s3_secret_access_key'),
-    'ru-1'
-)
+vk, s3 = VK(settings), S3(settings)
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(lambda: LogActivityJob.run(vk, s3), 'interval', minutes=1)
