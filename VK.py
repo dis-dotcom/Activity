@@ -2,8 +2,8 @@ import requests
 
 
 class VK:
-    def __init__(self, token):
-        self.token = token
+    def __init__(self, settings):
+        self.token = settings['vk']['token']
         self.version = "5.131"
         self.method = "users.get"
         self.parameters = "user_ids={0}&fields=last_seen,online"
