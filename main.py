@@ -31,19 +31,32 @@ app = FastAPI()
 
 @app.get("/logs")
 async def logs():
+    def get_class(level):
+        if level == 'ERROR':
+            return 'error'
+
+        return 'info'
     async def content():
         yield """
             <!DOCTYPE html>
             <html>
             <head>
                 <title> Логи </title>
+                <style>
+                    .info {
+                        color: gray
+                    }
+                    .error {
+                        color: red
+                    }
+                </style>
             </head>
             <body>
                 <ul style="font-family: monospace">
         """
 
         for level, message in Logger.Logger.logs:
-            yield "<li>"
+            yield f"""<li class="{get_class(level)}">"""
             yield f"<span>{level}: </span>"
             yield message
             yield "</li>"
